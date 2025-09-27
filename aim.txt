@@ -1,0 +1,170 @@
+Perfect 🚀 — **SnapX** is a strong, short, and catchy name. Let’s now build the **full detailed project plan** so you can actually develop it in the hackathon. I’ll cover **architecture, modules, tech stack, database, UI/UX flow, and extra features**.
+
+---
+
+# **📸 SnapX – Image Upload & Gallery with Approval Workflow**
+
+## **1. Project Overview**
+
+**SnapX** is a moderated gallery platform where **students upload images**, but they only become visible in the **public gallery** after **admin approval**. This ensures quality, safety, and relevance of shared content.
+
+---
+
+## **2. Core Features**
+
+### 🔹 **Student (Uploader) Side**
+
+* Upload images via a form.
+* Add **caption + description + name/ID**.
+* Track image status: **Pending / Approved / Rejected**.
+
+### 🔹 **Admin (Moderator) Side**
+
+* Secure login.
+* Dashboard with list of **pending images**.
+* Actions: **Approve / Reject / Delete**.
+* Manage gallery (update captions, remove images).
+
+### 🔹 **Public Gallery**
+
+* Grid layout showing **only approved images**.
+* Each image displays: caption, uploader details, date.
+* Mobile-friendly design.
+
+---
+
+## **3. System Workflow**
+
+1. **Upload** – Student submits image → stored in DB with status = *Pending*.
+2. **Moderation** – Admin logs in → approves/rejects.
+3. **Display** – Approved images appear in gallery.
+
+---
+
+## **4. System Architecture**
+
+**Client (Frontend):**
+
+* Upload Form (student).
+* Gallery View (public).
+* Admin Dashboard.
+
+**Server (Backend):**
+
+* API endpoints for uploads, approval, gallery fetch.
+* Authentication (for admin).
+
+**Database:**
+
+* Stores users, images, statuses.
+
+**Storage:**
+
+* Local server (`/uploads` folder) OR cloud (AWS S3 / Firebase).
+
+---
+
+## **5. Tech Stack Options**
+
+(Choose based on team skills & hackathon time)
+
+### **Option A – MERN (Fast Hackathon Build)**
+
+* **Frontend:** React.js + Tailwind CSS
+* **Backend:** Node.js + Express
+* **Database:** MongoDB
+* **Storage:** Local / Cloud
+
+### **Option B – Python/Django (Quick Admin Panel)**
+
+* **Frontend:** Django templates / React
+* **Backend:** Django REST Framework
+* **Database:** PostgreSQL / SQLite
+* **Storage:** Cloud (AWS S3 / Firebase)
+
+---
+
+## **6. Database Schema (Simplified ERD)**
+
+**Users Table**
+
+* `id` (PK)
+* `name`
+* `email`
+* `role` (student/admin)
+* `password` (hashed)
+
+**Images Table**
+
+* `id` (PK)
+* `uploaderId` (FK → Users.id)
+* `filePath` (image URL)
+* `caption`
+* `status` (Pending / Approved / Rejected)
+* `createdAt`
+
+---
+
+## **7. API Endpoints**
+
+* `POST /api/upload` → Student uploads image.
+* `GET /api/gallery` → Fetch all approved images.
+* `GET /api/admin/pending` → List of pending images.
+* `POST /api/admin/approve/:id` → Approve image.
+* `POST /api/admin/reject/:id` → Reject image.
+* `DELETE /api/admin/delete/:id` → Delete image.
+
+---
+
+## **8. UI/UX Design (Flow)**
+
+### **Student Side**
+
+* Upload Page → File picker, caption field, submit button.
+* Status Page → “Your image is pending approval.”
+
+### **Admin Side**
+
+* Login Page (Admin only).
+* Dashboard → Table of pending uploads with Approve/Reject buttons.
+* Approved Tab → Manage gallery.
+
+### **Public Gallery**
+
+* Masonry/Grid view (like Instagram).
+* Each card → Image + caption + uploader details.
+
+---
+
+## **9. Security Considerations**
+
+* File type validation (jpg, png, gif only).
+* File size limit (e.g., 5MB).
+* Authentication required for Admin actions.
+* Sanitize inputs (to avoid XSS).
+
+---
+
+## **10. Future Enhancements (for extra points in judging)**
+
+* **Notifications**: Email/SMS when image is approved/rejected.
+* **Tags & Categories**: Filter images by event type (e.g., “Hackathon”, “Sports”).
+* **Like/Comment System**: Engagement in gallery.
+* **AI Content Filter**: Detect NSFW/inappropriate content before admin review.
+* **Multiple Admin Roles**: Super Admin & Reviewers.
+* **Mobile App Version**: React Native / Flutter.
+
+---
+
+## **11. Expected Hackathon Demo**
+
+1. Student uploads photo → status shown as pending.
+2. Admin logs in → sees pending → clicks Approve.
+3. Gallery refreshes → approved photo visible with caption & uploader details.
+
+---
+
+
+extra key ": 
+
+MONGO_URI=mongodb+srv://snapx:snapx01@hkhub.hbvawdn.mongodb.net/SnapX?retryWrites=true&w=majority&appName=SnapX
