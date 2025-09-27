@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ImageProvider } from './context/ImageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
@@ -51,16 +52,10 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      {/* Landing page for non-authenticated users, feed for authenticated users */}
+      {/* Landing page - accessible to everyone */}
       <Route 
         path="/" 
-        element={
-          user ? (
-            <Navigate to="/feed" replace />
-          ) : (
-            <Landing />
-          )
-        } 
+        element={<Landing />} 
       />
       
       {/* Feed for authenticated users */}
@@ -76,9 +71,7 @@ const AppRoutes = () => {
       {/* Authentication */}
       <Route 
         path="/login" 
-        element={
-          user ? <Navigate to="/feed" replace /> : <Login />
-        } 
+        element={<Login />} 
       />
       
       <Route 
@@ -129,14 +122,15 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="min-h-screen flex flex-col bg-dark">
-          <Header />
-          
-          <main className="flex-1">
-            <AppRoutes />
-          </main>
-          
-          <Footer />
+        <ImageProvider>
+          <div className="min-h-screen flex flex-col bg-dark">
+            <Header />
+            
+            <main className="flex-1">
+              <AppRoutes />
+            </main>
+            
+            <Footer />
           
           {/* Toast Notifications */}
           <Toaster
@@ -172,7 +166,8 @@ function App() {
               },
             }}
           />
-        </div>
+          </div>
+        </ImageProvider>
       </AuthProvider>
     </Router>
   );

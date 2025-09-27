@@ -1,6 +1,30 @@
 # SnapX - A Photo Sharing Platform 📸
 
+<div align="center">
+  <img src="./screenshots/sc1.png" alt="SnapX Logo" width="400"/>
+  
+  [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+  [![Vite](https://img.shields.io/badge/Vite-7.1.7-green.svg)](https://vitejs.dev/)
+  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+</div>
+
 **SnapX** is a modern and feature-rich photo sharing platform built using **React** and **Pure CSS**. It provides a seamless experience for both users and administrators, enabling efficient photo sharing, discovery, and management.
+
+## 📑 Table of Contents
+
+- [🌟 Features](#-features)
+- [🎥 Demo Video](#-demo-video)
+- [📸 Screenshots](#-screenshots)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🚀 Installation and Setup](#-installation-and-setup)
+- [📂 Project Structure](#-project-structure)
+- [🛠️ Limitations](#️-limitations)
+- [🌟 Future Enhancements](#-future-enhancements)
+- [👥 Team](#-team)
+- [📱 Live Demo](#-live-demo)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
 
 ---
 
@@ -99,23 +123,59 @@ SnapX/
 
 ---
 
+## 🎥 Demo Video
+
+Check out our live demo video showcasing all the features:
+
+[![SnapX Demo Video](./screenshots/sc1.png)](./screenshots/Demo-Vidio.webm)
+
+_Click the image above to watch the demo video_
+
+---
+
 ## 📸 Screenshots
 
-### Landing Page:
+### 🏠 Landing Page & Welcome Screen
 
-![Landing Page](./screenshots/landing-page.png)
+<div align="center">
+  <img src="./screenshots/sc1.png" alt="Landing Page" width="800"/>
+  <p><em>Beautiful landing page with modern design and call-to-action</em></p>
+</div>
 
-### Photo Feed:
+### 📱 Photo Feed & Discovery
 
-![Photo Feed](./screenshots/feed-page.png)
+<div align="center">
+  <img src="./screenshots/sc2.png" alt="Photo Feed" width="800"/>
+  <p><em>Interactive photo feed with like, comment, and share functionality</em></p>
+</div>
 
-### User Profile:
+### 📤 Image Upload Interface
 
-![User Profile](./screenshots/profile-page.png)
+<div align="center">
+  <img src="./screenshots/sc3.png" alt="Upload Interface" width="800"/>
+  <p><em>Intuitive image upload with drag & drop support and metadata</em></p>
+</div>
 
-### Admin Dashboard:
+### 👤 User Profile & Gallery
 
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+<div align="center">
+  <img src="./screenshots/sc4.png" alt="User Profile" width="800"/>
+  <p><em>Personal profile page showing user's photo collections</em></p>
+</div>
+
+### 🔐 Authentication & Login
+
+<div align="center">
+  <img src="./screenshots/sc5.png" alt="Login Page" width="800"/>
+  <p><em>Secure login system with modern UI design</em></p>
+</div>
+
+### ⚙️ Admin Dashboard & Management
+
+<div align="center">
+  <img src="./screenshots/sc6.png" alt="Admin Dashboard" width="800"/>
+  <p><em>Comprehensive admin panel for content moderation and user management</em></p>
+</div>
 
 ---
 
@@ -171,9 +231,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-## 🎥 Demo Video
+## 📱 Live Demo
 
-**Link**: [https://drive.google.com/drive/u/0/folders/1iK1yax-vL51J-dLjaJBLhRXq-GhPGOIw](https://drive.google.com/drive/u/0/folders/1iK1yax-vL51J-dLjaJBLhRXq-GhPGOIw)
+� **Demo Video**: Available in `./screenshots/Demo-Vidio.webm`
+
+🌐 **Google Drive**: [https://drive.google.com/drive/u/0/folders/1iK1yax-vL51J-dLjaJBLhRXq-GhPGOIw](https://drive.google.com/drive/u/0/folders/1iK1yax-vL51J-dLjaJBLhRXq-GhPGOIw)
 
 ---
 

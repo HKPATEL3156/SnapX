@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaImages, FaSearch, FaFilter, FaSpinner } from 'react-icons/fa';
+import { FaImages, FaSearch, FaFilter, FaCircle } from 'react-icons/fa';
 import ImageCard from '../components/ImageCard';
 import ImageModal from '../components/ImageModal';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -73,85 +73,78 @@ const Gallery = () => {
     <div className="min-h-screen bg-gradient-light">
       {/* Hero Section */}
       <div className="bg-gradient-primary text-white py-16">
-        <div className="container text-center">
+        <div className="page-container text-center">
           <div className="animate-slide-up">
-            <FaImages className="text-6xl mx-auto mb-6 animate-bounce-gentle" />
-            <h1 className="text-5xl font-bold mb-4">
+            <div className="bg-gradient-secondary inline-flex items-center justify-center mb-6" style={{
+              width: '100px',
+              height: '100px',
+              borderRadius: '20px',
+              boxShadow: '0 8px 32px rgba(139, 92, 246, 0.3)'
+            }}>
+              <FaImages className="text-white text-4xl" />
+            </div>
+            <h1 className="text-6xl font-bold mb-6 text-white" style={{letterSpacing: '-0.02em'}}>
               SnapX Gallery
             </h1>
-            <p className="text-xl mb-8" style={{
-              color: '#dbeafe',
-              maxWidth: '42rem',
-              margin: '0 auto 2rem auto'
+            <p className="text-xl text-gray-light mb-10" style={{
+              maxWidth: '600px',
+              margin: '0 auto 3rem auto',
+              lineHeight: '1.6'
             }}>
               Discover amazing photography from our talented community. Every image is carefully curated for quality and creativity.
             </p>
             
             {/* Search Bar */}
-            <form onSubmit={handleSearch} style={{
-              maxWidth: '42rem',
-              margin: '0 auto'
-            }}>
-              <div className="flex rounded-2xl p-2" style={{
-                background: 'rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(4px)'
-              }}>
+            <div className="form-container" style={{width: '520px', padding: '1.5rem', background: 'rgba(30, 41, 59, 0.8)'}}>
+              <form onSubmit={handleSearch} className="flex items-center gap-3">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by caption, description, or tags..."
+                  className="form-input-large"
                   style={{
-                    flex: 1,
-                    background: 'transparent',
-                    color: 'white',
-                    padding: '0.75rem 1rem',
-                    border: 'none',
-                    outline: 'none'
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    border: '2px solid rgba(148, 163, 184, 0.3)',
+                    color: 'white'
                   }}
                 />
                 <button
                   type="submit"
                   disabled={isSearching}
-                  className="btn-secondary flex items-center"
+                  className="btn-primary"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.2)',
-                    color: 'white',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '0.75rem',
-                    border: 'none',
-                    cursor: 'pointer',
-                    gap: '0.5rem',
-                    transition: 'background-color 0.3s ease'
+                    width: '120px',
+                    height: '60px',
+                    borderRadius: '12px',
+                    fontSize: '1rem',
+                    fontWeight: '600'
                   }}
-                  onMouseOver={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.3)'}
-                  onMouseOut={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
                 >
-                  {isSearching ? <FaSpinner className="animate-spin" /> : <FaSearch />}
-                  <span className="hidden sm:inline">Search</span>
+                  {isSearching ? <FaCircle className="animate-spin" /> : (
+                    <>
+                      <FaSearch />
+                      <span>Search</span>
+                    </>
+                  )}
                 </button>
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={clearSearch}
-                    className="text-white"
+                    className="btn-secondary"
                     style={{
-                      background: 'rgba(239, 68, 68, 0.2)',
-                      padding: '0.75rem 1rem',
-                      borderRadius: '0.75rem',
-                      marginLeft: '0.5rem',
-                      border: 'none',
-                      cursor: 'pointer',
-                      transition: 'background-color 0.3s ease'
+                      width: '80px',
+                      height: '60px',
+                      borderRadius: '12px',
+                      fontSize: '0.9rem'
                     }}
-                    onMouseOver={(e) => e.target.style.background = 'rgba(239, 68, 68, 0.3)'}
-                    onMouseOut={(e) => e.target.style.background = 'rgba(239, 68, 68, 0.2)'}
                   >
                     Clear
                   </button>
                 )}
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaUserPlus, FaSignInAlt, FaCamera, FaHeart, FaShare, FaStar, FaUsers, FaImage, FaShield } from 'react-icons/fa';
+import { FaSearch, FaUserPlus, FaSignInAlt, FaCamera, FaHeart, FaShare, FaStar, FaUsers, FaImage, FaLock } from 'react-icons/fa';
 
 const Landing = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,7 +22,7 @@ const Landing = () => {
       description: 'Browse through curated feeds of amazing photography from around the world.'
     },
     {
-      icon: FaShield,
+      icon: FaLock,
       title: 'Safe Community',
       description: 'Our moderation system ensures a safe and welcoming environment for everyone.'
     }

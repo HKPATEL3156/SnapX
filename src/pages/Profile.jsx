@@ -98,88 +98,96 @@ const Profile = () => {
   return (
     <div className="min-h-screen section-dark">
       {/* Profile Header */}
-      <div className="bg-gradient-primary" style={{padding: '3rem 0'}}>
-        <div className="container-dark">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+      <div className="bg-gradient-primary" style={{padding: '4rem 0'}}>
+        <div className="page-container">
+          <div className="content-card" style={{textAlign: 'center', padding: '3rem'}}>
             {/* Profile Picture */}
-            <div className="flex-shrink-0">
+            <div style={{marginBottom: '2rem'}}>
               <div className="bg-gradient-secondary glow-blue" style={{
-                width: '8rem',
-                height: '8rem',
+                width: '120px',
+                height: '120px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '3rem',
+                fontSize: '3.5rem',
                 fontWeight: 'bold',
                 color: 'white',
-                border: '4px solid rgba(59, 130, 246, 0.3)'
+                border: '4px solid rgba(59, 130, 246, 0.4)',
+                margin: '0 auto',
+                boxShadow: '0 8px 32px rgba(59, 130, 246, 0.3)'
               }}>
                 {user.name.charAt(0).toUpperCase()}
               </div>
             </div>
             
             {/* Profile Info */}
-            <div className="flex-grow text-center lg:text-left">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
-                <div>
-                  <h1 className="text-4xl font-bold text-white mb-2">
-                    {user.name}
-                  </h1>
-                  <div className="flex flex-col lg:flex-row lg:items-center gap-4 text-gray-light">
-                    <div className="flex items-center gap-2">
-                      <FaEnvelope />
-                      <span>{user.email}</span>
-                    </div>
-                    {user.studentId && (
-                      <div className="flex items-center gap-2">
-                        <FaIdCard />
-                        <span>ID: {user.studentId}</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2">
-                      <FaCalendar />
-                      <span>Joined {formatJoinDate(user.createdAt || new Date())}</span>
-                    </div>
-                  </div>
+            <div style={{marginBottom: '2.5rem'}}>
+              <h1 className="text-5xl font-bold text-white mb-4" style={{letterSpacing: '-0.02em'}}>
+                {user.name}
+              </h1>
+              <div className="flex justify-center items-center gap-6 text-gray-light text-lg">
+                <div className="flex items-center gap-2">
+                  <FaEnvelope />
+                  <span>{user.email}</span>
                 </div>
-                
-                <button
-                  onClick={() => setIsEditing(!isEditing)}
-                  className="btn-secondary mt-4 lg:mt-0"
-                >
-                  <FaEdit />
-                  <span>Edit Profile</span>
-                </button>
+                {user.studentId && (
+                  <div className="flex items-center gap-2">
+                    <FaIdCard />
+                    <span>ID: {user.studentId}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <FaCalendar />
+                  <span>Joined {formatJoinDate(user.createdAt || new Date())}</span>
+                </div>
               </div>
               
-              {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">{stats.totalImages}</div>
-                  <div className="text-sm text-gray-light">Photos</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green">{stats.approvedImages}</div>
-                  <div className="text-sm text-gray-light">Approved</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow">{stats.pendingImages}</div>
-                  <div className="text-sm text-gray-light">Pending</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue">{stats.totalViews}</div>
-                  <div className="text-sm text-gray-light">Views</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink">{stats.totalLikes}</div>
-                  <div className="text-sm text-gray-light">Likes</div>
-                </div>
+              {/* Edit Button */}
+              <button
+                onClick={() => setIsEditing(!isEditing)}
+                className="btn-primary"
+                style={{
+                  width: '160px',
+                  height: '50px',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  marginTop: '1.5rem'
+                }}
+              >
+                <FaEdit />
+                <span>Edit Profile</span>
+              </button>
+            </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-5 gap-8" style={{marginTop: '3rem'}}>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white mb-2">{stats.totalImages}</div>
+                <div className="text-sm text-gray-light uppercase tracking-wider">Photos</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green mb-2">{stats.approvedImages}</div>
+                <div className="text-sm text-gray-light uppercase tracking-wider">Approved</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow mb-2">{stats.pendingImages}</div>
+                <div className="text-sm text-gray-light uppercase tracking-wider">Pending</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue mb-2">{stats.totalViews}</div>
+                <div className="text-sm text-gray-light uppercase tracking-wider">Views</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-pink mb-2">{stats.totalLikes}</div>
+                <div className="text-sm text-gray-light uppercase tracking-wider">Likes</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
 
       {/* Edit Profile Form */}
       {isEditing && (
@@ -229,14 +237,14 @@ const Profile = () => {
                 />
               </div>
               
-              <div className="flex gap-4 pt-4">
-                <button type="submit" className="btn-primary flex-1">
+              <div className="flex gap-4 pt-4 justify-center">
+                <button type="submit" className="btn-primary" style={{width: '140px'}}>
                   Save Changes
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="btn-secondary flex-1"
+                  className="btn-secondary" style={{width: '140px'}}
                 >
                   Cancel
                 </button>
@@ -244,10 +252,10 @@ const Profile = () => {
             </form>
           </div>
         </div>
-      )}
+        )}
 
-      {/* User Photos */}
-      <div className="container-dark" style={{padding: '3rem 0'}}>
+        {/* User Photos */}
+        <div className="container-dark" style={{padding: '3rem 0'}}>
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-white">My Photos</h2>
           <a href="/upload" className="btn-primary">
@@ -306,14 +314,14 @@ const Profile = () => {
             ))}
           </div>
         )}
-      </div>
+        </div>
 
-      {/* Image Modal */}
-      <ImageModal
-        image={selectedImage}
-        isOpen={!!selectedImage}
-        onClose={() => setSelectedImage(null)}
-      />
+        {/* Image Modal */}
+        <ImageModal
+          image={selectedImage}
+          isOpen={!!selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
     </div>
   );
 };

@@ -27,7 +27,9 @@ const ImageCard = ({ image, onClick }) => {
         backgroundColor: '#f3f4f6'
       }}>
         <img
-          src={`http://localhost:5000${image.filePath}`}
+          src={image.filePath.startsWith('http') || image.filePath.startsWith('data:') 
+            ? image.filePath 
+            : `http://localhost:5000${image.filePath}`}
           alt={image.caption}
           style={{
             width: '100%',
@@ -38,6 +40,11 @@ const ImageCard = ({ image, onClick }) => {
           onMouseOver={(e) => e.target.style.transform = 'scale(1.1)'}
           onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
           loading="lazy"
+          onError={(e) => {
+            console.error('Image load error:', e.target.src);
+            e.target.style.background = '#f3f4f6';
+            e.target.alt = 'Image not available';
+          }}
         />
         
         {/* Overlay on hover */}
@@ -122,13 +129,13 @@ const ImageCard = ({ image, onClick }) => {
         )}
 
         {/* Tags */}
-        {image.tags && image.tags.length > 0 && (
+        {image.tags && image.tags.trim() && (
           <div className="mb-4" style={{
             display: 'flex',
             flexWrap: 'wrap',
             gap: '0.25rem'
           }}>
-            {image.tags.slice(0, 3).map((tag, index) => (
+            {image.tags.split(',').map(tag => tag.trim()).filter(tag => tag).slice(0, 3).map((tag, index) => (
               <span
                 key={index}
                 className="text-xs text-blue rounded-xl"
@@ -144,9 +151,9 @@ const ImageCard = ({ image, onClick }) => {
                 <span>{tag}</span>
               </span>
             ))}
-            {image.tags.length > 3 && (
+            {image.tags.split(',').length > 3 && (
               <span className="text-xs" style={{color: '#6b7280'}}>
-                +{image.tags.length - 3} more
+                +{image.tags.split(',').length - 3} more
               </span>
             )}
           </div>

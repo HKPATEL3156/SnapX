@@ -16,10 +16,13 @@ const Header = () => {
   };
 
   const navigation = user ? [
-    { name: 'Feed', href: '/feed', icon: FaHome },
+    { name: 'Home', href: '/', icon: FaHome },
+    { name: 'Feed', href: '/feed', icon: FaCamera },
     { name: 'Upload', href: '/upload', icon: FaPlus },
     { name: 'Profile', href: '/profile', icon: FaUser },
-  ] : [];
+  ] : [
+    { name: 'Home', href: '/', icon: FaHome },
+  ];
 
   const isActive = (path) => location.pathname === path;
 
@@ -42,7 +45,7 @@ const Header = () => {
         alignItems: 'center'
       }}>
         {/* Logo */}
-        <Link to={user ? "/feed" : "/"} style={{
+        <Link to="/" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',

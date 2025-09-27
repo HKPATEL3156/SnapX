@@ -4,69 +4,76 @@ import { FaImages, FaSearch, FaFilter, FaHeart, FaComment, FaShare, FaBookmark }
 import ImageCard from '../components/ImageCard';
 import ImageModal from '../components/ImageModal';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { imagesAPI } from '../services/api';
+import StatisticsDisplay from '../components/StatisticsDisplay';
+import { useImages } from '../context/ImageContext';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Feed = () => {
   const { user } = useAuth();
-  const [images, setImages] = useState([]);
+  const { images, getApprovedImages, searchImages } = useImages();
+  const [displayImages, setDisplayImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [pagination, setPagination] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    totalImages: 0,
+    totalPages: 1,
+    hasPrev: false,
+    hasNext: false
+  });
 
   useEffect(() => {
-    fetchImages();
-  }, [currentPage, activeFilter]);
+    // Get approved images from context
+    console.log('All images:', images);
+    const approvedImages = getApprovedImages();
+    console.log('Approved images:', approvedImages);
+    
+    setDisplayImages(approvedImages);
+    setPagination({
+      totalImages: approvedImages.length,
+      totalPages: Math.ceil(approvedImages.length / 10),
+      hasPrev: currentPage > 1,
+      hasNext: currentPage < Math.ceil(approvedImages.length / 10)
+    });
+    setLoading(false);
+  }, [images, getApprovedImages, currentPage]);
 
-  const fetchImages = async () => {
-    try {
-      setLoading(true);
-      const response = await imagesAPI.getGallery(currentPage, 12, activeFilter);
-      setImages(response.data.images);
-      setPagination(response.data.pagination);
-    } catch (error) {
-      console.error('Error fetching images:', error);
-      toast.error('Failed to load feed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) {
-      fetchImages();
+      const approvedImages = getApprovedImages();
+      setDisplayImages(approvedImages);
+      setIsSearching(false);
       return;
     }
 
-    try {
-      setIsSearching(true);
-      const response = await imagesAPI.search(searchQuery.trim(), 1, 12);
-      setImages(response.data.images);
-      setPagination({
-        currentPage: response.data.page,
-        totalPages: response.data.totalPages,
-        totalImages: response.data.total
-      });
-      setCurrentPage(1);
-    } catch (error) {
-      console.error('Search error:', error);
-      toast.error('Search failed');
-    } finally {
-      setIsSearching(false);
-    }
+    setIsSearching(true);
+    const results = searchImages(searchQuery.trim()).filter(img => img.status === 'approved');
+    setDisplayImages(results);
+    setPagination({
+      totalImages: results.length,
+      totalPages: Math.ceil(results.length / 10),
+      hasPrev: false,
+      hasNext: false
+    });
+    setIsSearching(false);
   };
 
   const clearSearch = () => {
     setSearchQuery('');
-    setCurrentPage(1);
-    setActiveFilter('all');
-    fetchImages();
+    const approvedImages = getApprovedImages();
+    setDisplayImages(approvedImages);
+    setPagination({
+      totalImages: approvedImages.length,
+      totalPages: Math.ceil(approvedImages.length / 10),
+      hasPrev: false,
+      hasNext: false
+    });
+    setIsSearching(false);
   };
 
   const handlePageChange = (page) => {
@@ -84,61 +91,67 @@ const Feed = () => {
   return (
     <div className="min-h-screen section-dark">
       {/* Header Section */}
-      <div className="bg-gradient-primary" style={{padding: '3rem 0'}}>
-        <div className="container-dark text-center">
+      <div className="bg-gradient-primary" style={{padding: '4rem 0'}}>
+        <div className="page-container text-center">
           <div className="animate-slide-up">
-            <h1 className="text-4xl font-bold text-white mb-4">
+            <h1 className="text-5xl font-bold text-white mb-6" style={{letterSpacing: '-0.02em'}}>
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-xl text-gray-light mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-light mb-10" style={{maxWidth: '600px', margin: '0 auto', lineHeight: '1.6'}}>
               Discover amazing photography from our creative community. Share your vision and get inspired.
             </p>
             
             {/* Search Bar */}
-            <form onSubmit={handleSearch} style={{maxWidth: '42rem', margin: '0 auto'}}>
-              <div className="glass-effect rounded-2xl p-2 flex">
+            <div className="form-container" style={{width: '520px', padding: '1.5rem', background: 'rgba(30, 41, 59, 0.8)'}}>
+              <form onSubmit={handleSearch} className="flex items-center gap-3">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search photos, photographers, tags..."
-                  className="form-input"
+                  className="form-input-large"
                   style={{
-                    flex: 1,
-                    background: 'transparent',
-                    border: 'none',
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    border: '2px solid rgba(148, 163, 184, 0.3)',
                     color: 'white'
                   }}
                 />
                 <button
                   type="submit"
                   disabled={isSearching}
-                  className="btn-secondary flex items-center"
+                  className="btn-primary"
                   style={{
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '0.75rem',
-                    marginLeft: '0.5rem'
+                    width: '120px',
+                    height: '60px',
+                    borderRadius: '12px',
+                    fontSize: '1rem',
+                    fontWeight: '600'
                   }}
                 >
-                  {isSearching ? <LoadingSpinner size="sm" color="white" /> : <FaSearch />}
-                  <span className="hidden sm:inline ml-2">Search</span>
+                  {isSearching ? <LoadingSpinner size="sm" color="white" /> : (
+                    <>
+                      <FaSearch />
+                      <span>Search</span>
+                    </>
+                  )}
                 </button>
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={clearSearch}
-                    className="btn-danger"
+                    className="btn-secondary"
                     style={{
-                      padding: '0.75rem 1rem',
-                      borderRadius: '0.75rem',
-                      marginLeft: '0.5rem'
+                      width: '80px',
+                      height: '60px',
+                      borderRadius: '12px',
+                      fontSize: '0.9rem'
                     }}
                   >
                     Clear
                   </button>
                 )}
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -186,7 +199,7 @@ const Feed = () => {
         )}
 
         {/* Empty State */}
-        {!loading && images.length === 0 && (
+        {!loading && displayImages.length === 0 && (
           <div className="text-center py-20 animate-fade-in">
             <FaImages className="text-6xl text-gray mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-gray-light mb-2">
@@ -198,6 +211,37 @@ const Feed = () => {
                 : 'Start following photographers or upload your first photo!'
               }
             </p>
+            <div style={{ 
+              marginBottom: '20px', 
+              padding: '15px', 
+              background: '#f8f9fa', 
+              borderRadius: '8px',
+              fontSize: '14px',
+              color: '#6c757d'
+            }}>
+              <p><strong>Debug Info:</strong></p>
+              <p>Total images in context: {images ? images.length : 'Loading...'}</p>
+              <p>Approved images: {getApprovedImages().length}</p>
+              <p>Display images: {displayImages.length}</p>
+              <p>Search query: {searchQuery || 'None'}</p>
+              <button 
+                onClick={() => {
+                  localStorage.removeItem('snapx_images');
+                  window.location.reload();
+                }}
+                style={{ 
+                  marginTop: '10px',
+                  padding: '8px 16px',
+                  background: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Reset & Reload Images
+              </button>
+            </div>
             {searchQuery ? (
               <button
                 onClick={clearSearch}
@@ -217,12 +261,12 @@ const Feed = () => {
         )}
 
         {/* Images Grid */}
-        {!loading && images.length > 0 && (
+        {!loading && displayImages.length > 0 && (
           <>
             <div className="grid gap-6 mb-12" style={{
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))'
             }}>
-              {images.map((image) => (
+              {displayImages.map((image) => (
                 <div key={image._id} className="hover-lift">
                   <ImageCard
                     image={image}
@@ -282,6 +326,15 @@ const Feed = () => {
           </>
         )}
       </div>
+
+      {/* Platform Statistics */}
+      {displayImages.length > 0 && (
+        <div style={{ padding: '3rem 0' }}>
+          <div className="page-container">
+            <StatisticsDisplay />
+          </div>
+        </div>
+      )}
 
       {/* Image Modal */}
       <ImageModal
