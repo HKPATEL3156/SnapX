@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHeart, FaGithub, FaLinkedin, FaTwitter, FaCameraRetro } from 'react-icons/fa';
+import { FaHeart, FaGithub, FaLinkedin, FaTwitter, FaCamera } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,11 +13,11 @@ const Footer = () => {
           <div style={{gridColumn: 'span 2'}}>
             <div className="flex items-center mb-4" style={{gap: '0.75rem'}}>
               <div className="bg-gradient-primary glow-blue rounded-xl" style={{padding: '1rem'}}>
-                <FaCameraRetro className="text-white" style={{fontSize: '1.25rem'}} />
+                <FaCamera className="text-white" style={{fontSize: '1.25rem'}} />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gradient">
-                  PhotoShare
+                  SnapX
                 </h1>
                 <p className="text-sm text-gray">Professional Photo Community</p>
               </div>
@@ -122,9 +122,9 @@ const Footer = () => {
         <div className="container p-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center text-sm" style={{gap: '0.5rem', color: '#9ca3af'}}>
-              <span>© {currentYear} PhotoShare. Made with</span>
+              <span>© {currentYear} SnapX. Made with</span>
               <FaHeart className="text-red" style={{animation: 'pulse 2s infinite'}} />
-              <span>for photographers worldwide</span>
+              <span>by 23DCS045 | 23DCS016</span>
             </div>
             <div className="text-sm" style={{color: '#9ca3af', marginTop: '1rem'}}>
               <span className="text-blue">Professional Photography Platform</span> - Inspiring Creativity Daily

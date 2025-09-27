@@ -13,6 +13,301 @@ body {
    min-height: 100vh;
 }
 
+/* Landing Page Styles */
+.landing-hero {
+   background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3730a3 100%);
+   min-height: 90vh;
+   display: flex;
+   align-items: center;
+   position: relative;
+   overflow: hidden;
+}
+
+.landing-hero::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="300" r="3" fill="rgba(255,255,255,0.08)"/><circle cx="400" cy="600" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="700" cy="800" r="2" fill="rgba(255,255,255,0.09)"/></svg>');
+}
+
+.feature-card {
+   background: rgba(30, 41, 59, 0.6);
+   -webkit-backdrop-filter: blur(20px);
+   backdrop-filter: blur(20px);
+   border: 1px solid rgba(59, 130, 246, 0.2);
+   border-radius: 1rem;
+   padding: 2rem;
+   transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+   background: rgba(30, 41, 59, 0.8);
+   border-color: rgba(59, 130, 246, 0.4);
+   transform: translateY(-8px);
+}
+
+.search-container {
+   background: rgba(15, 23, 42, 0.8);
+   -webkit-backdrop-filter: blur(16px);
+   backdrop-filter: blur(16px);
+   border: 2px solid rgba(59, 130, 246, 0.3);
+   border-radius: 2rem;
+   padding: 0.75rem;
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   max-width: 600px;
+   margin: 2rem auto;
+}
+
+.search-input {
+   flex: 1;
+   background: transparent;
+   border: none;
+   outline: none;
+   color: #e2e8f0;
+   font-size: 1.125rem;
+   padding: 0.5rem;
+}
+
+.search-input::placeholder {
+   color: #94a3b8;
+}
+
+/* Feed Styles */
+.feed-container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 0 1rem;
+}
+
+.post-card {
+   background: rgba(30, 41, 59, 0.8);
+   border: 1px solid rgba(148, 163, 184, 0.1);
+   border-radius: 1rem;
+   overflow: hidden;
+   margin-bottom: 2rem;
+   transition: all 0.3s ease;
+}
+
+.post-card:hover {
+   border-color: rgba(59, 130, 246, 0.3);
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.post-header {
+   padding: 1rem 1.5rem;
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.post-avatar {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: bold;
+   color: white;
+}
+
+.post-image {
+   width: 100%;
+   max-height: 600px;
+   object-fit: cover;
+   display: block;
+}
+
+.post-actions {
+   padding: 1rem 1.5rem;
+   display: flex;
+   align-items: center;
+   gap: 1.5rem;
+}
+
+.action-btn {
+   background: none;
+   border: none;
+   color: #94a3b8;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   font-size: 0.875rem;
+   padding: 0.5rem;
+   border-radius: 0.5rem;
+   transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+   color: #60a5fa;
+   background: rgba(59, 130, 246, 0.1);
+}
+
+.action-btn.liked {
+   color: #f472b6;
+}
+
+/* Profile Styles */
+.profile-header {
+   background: linear-gradient(135deg, #1e40af, #3730a3);
+   padding: 3rem 0;
+   position: relative;
+}
+
+.profile-avatar {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 3rem;
+   font-weight: bold;
+   color: white;
+   border: 4px solid rgba(255, 255, 255, 0.2);
+   margin: 0 auto 2rem;
+}
+
+.stats-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+   gap: 1rem;
+   margin: 2rem 0;
+}
+
+.stat-item {
+   text-align: center;
+   padding: 1rem;
+   background: rgba(30, 41, 59, 0.6);
+   border-radius: 0.75rem;
+   border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.stat-number {
+   font-size: 2rem;
+   font-weight: bold;
+   color: #60a5fa;
+}
+
+.stat-label {
+   color: #94a3b8;
+   font-size: 0.875rem;
+   margin-top: 0.25rem;
+}
+
+/* Admin Dashboard Styles */
+.admin-header {
+   background: linear-gradient(135deg, #7c3aed, #581c87);
+   padding: 2rem 0;
+   text-align: center;
+}
+
+.admin-nav {
+   background: rgba(30, 41, 59, 0.8);
+   border-radius: 1rem;
+   padding: 1rem;
+   margin: 2rem 0;
+   display: flex;
+   gap: 0.5rem;
+   flex-wrap: wrap;
+}
+
+.admin-nav-item {
+   padding: 0.75rem 1.5rem;
+   border-radius: 0.5rem;
+   background: transparent;
+   border: 1px solid rgba(148, 163, 184, 0.2);
+   color: #94a3b8;
+   cursor: pointer;
+   transition: all 0.3s ease;
+}
+
+.admin-nav-item.active,
+.admin-nav-item:hover {
+   background: rgba(59, 130, 246, 0.2);
+   border-color: rgba(59, 130, 246, 0.4);
+   color: #60a5fa;
+}
+
+.pending-image {
+   background: rgba(30, 41, 59, 0.8);
+   border: 1px solid rgba(148, 163, 184, 0.1);
+   border-radius: 1rem;
+   padding: 1.5rem;
+   margin-bottom: 1.5rem;
+}
+
+.pending-image img {
+   width: 100%;
+   max-height: 300px;
+   object-fit: cover;
+   border-radius: 0.5rem;
+   margin-bottom: 1rem;
+}
+
+.approval-actions {
+   display: flex;
+   gap: 1rem;
+   margin-top: 1rem;
+}
+
+.approve-btn {
+   background: linear-gradient(135deg, #10b981, #059669);
+   color: white;
+   border: none;
+   padding: 0.75rem 1.5rem;
+   border-radius: 0.5rem;
+   cursor: pointer;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+.reject-btn {
+   background: linear-gradient(135deg, #ef4444, #dc2626);
+   color: white;
+   border: none;
+   padding: 0.75rem 1.5rem;
+   border-radius: 0.5rem;
+   cursor: pointer;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   .feature-card {
+      padding: 1.5rem;
+   }
+   
+   .profile-avatar {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+   }
+   
+   .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+   
+   .admin-nav {
+      flex-direction: column;
+   }
+   
+   .post-actions {
+      flex-wrap: wrap;
+      gap: 1rem;
+   }
+}
+
 /* Custom Animation Classes */
 @keyframes fadeIn {
    from {

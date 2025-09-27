@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Gallery from './pages/Gallery';
+import Landing from './pages/Landing';
 import Feed from './pages/Feed';
 import Upload from './pages/Upload';
 import Login from './pages/Login';
@@ -51,17 +51,25 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      {/* Public Gallery for non-authenticated users */}
+      {/* Landing page for non-authenticated users, feed for authenticated users */}
       <Route 
         path="/" 
         element={
           user ? (
-            <ProtectedRoute requireAuth={true}>
-              <Feed />
-            </ProtectedRoute>
+            <Navigate to="/feed" replace />
           ) : (
-            <Gallery />
+            <Landing />
           )
+        } 
+      />
+      
+      {/* Feed for authenticated users */}
+      <Route 
+        path="/feed" 
+        element={
+          <ProtectedRoute requireAuth={true}>
+            <Feed />
+          </ProtectedRoute>
         } 
       />
       
@@ -69,7 +77,14 @@ const AppRoutes = () => {
       <Route 
         path="/login" 
         element={
-          user ? <Navigate to="/" replace /> : <Login />
+          user ? <Navigate to="/feed" replace /> : <Login />
+        } 
+      />
+      
+      <Route 
+        path="/register" 
+        element={
+          user ? <Navigate to="/feed" replace /> : <Login />
         } 
       />
       
