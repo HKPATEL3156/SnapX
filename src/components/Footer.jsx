@@ -12,19 +12,19 @@ const Footer = () => {
           {/* Brand Section */}
           <div style={{gridColumn: 'span 2'}}>
             <div className="flex items-center mb-4" style={{gap: '0.75rem'}}>
-              <div className="bg-gradient rounded-xl p-4">
-                <FaCameraRetro className="text-white text-xl" />
+              <div className="bg-gradient-primary glow-blue rounded-xl" style={{padding: '1rem'}}>
+                <FaCameraRetro className="text-white" style={{fontSize: '1.25rem'}} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-blue">
-                  SnapX
+                <h1 className="text-2xl font-bold text-gradient">
+                  PhotoShare
                 </h1>
-                <p className="text-sm" style={{color: '#9ca3af'}}>Image Gallery Platform</p>
+                <p className="text-sm text-gray">Professional Photo Community</p>
               </div>
             </div>
-            <p className="mb-6" style={{color: '#d1d5db', maxWidth: '28rem', lineHeight: '1.6'}}>
-              A beautiful, moderated gallery platform where students can upload and share their amazing photography. 
-              Every image goes through our approval process to ensure quality and safety.
+            <p className="mb-6 text-gray-light" style={{maxWidth: '28rem', lineHeight: '1.6'}}>
+              A professional photography platform where creators connect, share, and inspire. 
+              Join our community of passionate photographers and showcase your unique vision to the world.
             </p>
             <div className="flex" style={{gap: '1rem'}}>
               <a href="#" style={{color: '#9ca3af', transition: 'color 0.3s ease'}} 
@@ -122,12 +122,12 @@ const Footer = () => {
         <div className="container p-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center text-sm" style={{gap: '0.5rem', color: '#9ca3af'}}>
-              <span>© {currentYear} SnapX. Made with</span>
+              <span>© {currentYear} PhotoShare. Made with</span>
               <FaHeart className="text-red" style={{animation: 'pulse 2s infinite'}} />
-              <span>for the hackathon</span>
+              <span>for photographers worldwide</span>
             </div>
-            <div className="text-sm mt-4" style={{color: '#9ca3af', marginTop: '1rem'}}>
-              <span className="text-blue">Moderated Gallery Platform</span> - Quality & Safety First
+            <div className="text-sm" style={{color: '#9ca3af', marginTop: '1rem'}}>
+              <span className="text-blue">Professional Photography Platform</span> - Inspiring Creativity Daily
             </div>
           </div>
         </div>
