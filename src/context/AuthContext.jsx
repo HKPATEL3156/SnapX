@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -11,6 +10,22 @@ export const useAuth = () => {
   return context;
 };
 
+// Mock users for development
+const MOCK_USERS = [
+  {
+    id: 1,
+    name: 'Admin User',
+    email: 'admin@snapx.com',
+    role: 'admin'
+  },
+  {
+    id: 2,
+    name: 'John Doe',
+    email: 'john@example.com',
+    role: 'user'
+  }
+];
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,13 +36,10 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const token = localStorage.getItem('snapx_token');
       const savedUser = localStorage.getItem('snapx_user');
       
-      if (token && savedUser) {
+      if (savedUser) {
         setUser(JSON.parse(savedUser));
-        // Verify token is still valid
-        await authAPI.verify();
       }
     } catch (error) {
       console.error('Auth verification failed:', error);
@@ -39,33 +51,37 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await authAPI.login(credentials);
-      const { token, user } = response.data;
+      // Mock login logic
+      const mockUser = MOCK_USERS.find(u => u.email === credentials.email);
       
-      localStorage.setItem('snapx_token', token);
-      localStorage.setItem('snapx_user', JSON.stringify(user));
-      setUser(user);
-      
-      return { success: true, user };
+      if (mockUser && (credentials.password === 'admin@snapx001' || credentials.password === 'password123')) {
+        localStorage.setItem('snapx_user', JSON.stringify(mockUser));
+        setUser(mockUser);
+        return { success: true, user: mockUser };
+      } else {
+        return { success: false, message: 'Invalid credentials' };
+      }
     } catch (error) {
-      const message = error.response?.data?.message || 'Login failed';
-      return { success: false, message };
+      return { success: false, message: 'Login failed' };
     }
   };
 
   const register = async (userData) => {
     try {
-      const response = await authAPI.register(userData);
-      const { token, user } = response.data;
+      // Mock registration logic
+      const newUser = {
+        id: Date.now(),
+        name: userData.name,
+        email: userData.email,
+        role: 'user'
+      };
       
-      localStorage.setItem('snapx_token', token);
-      localStorage.setItem('snapx_user', JSON.stringify(user));
-      setUser(user);
+      localStorage.setItem('snapx_user', JSON.stringify(newUser));
+      setUser(newUser);
       
-      return { success: true, user };
+      return { success: true, user: newUser };
     } catch (error) {
-      const message = error.response?.data?.message || 'Registration failed';
-      return { success: false, message };
+      return { success: false, message: 'Registration failed' };
     }
   };
 
